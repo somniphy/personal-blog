@@ -3,9 +3,10 @@
 import * as React from "react";
 import {
     AppWindowIcon,
-    CrownIcon,
+    BookAIcon,
     HomeIcon,
-    MailIcon,
+    ListCheckIcon,
+    ShieldCheckIcon,
     Users2Icon,
 } from "lucide-react";
 import { NavUser } from "@/components/nav-user";
@@ -46,6 +47,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 icon: Users2Icon,
                 isActive: isRouteActive("users.index"),
             },
+            {
+                title: "Roles",
+                url: route("roles.index"),
+                icon: ShieldCheckIcon,
+                isActive: isRouteActive("roles.index"),
+            },
+            {
+                title: "Categories",
+                url: route("categories.index"),
+                icon: ListCheckIcon,
+                isActive: isRouteActive("categories.index"),
+            },
+            {
+                title: "Articles",
+                url: route("articles.index"),
+                icon: BookAIcon,
+                isActive: isRouteActive("articles.index"),
+            },
         ],
     };
 
@@ -65,7 +84,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarMenuButton>
                 </SidebarMenuItem>
             </SidebarHeader>
-            <SidebarContent>
+            <SidebarContent className="ml-2">
                 <NavMain items={data.navMain} />
             </SidebarContent>
             <SidebarFooter>

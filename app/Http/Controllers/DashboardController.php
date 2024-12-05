@@ -15,7 +15,6 @@ class DashboardController extends Controller
     public function index()
     {
 
-
         $monthlyUsers = User::select(DB::raw("strftime('%m', created_at) as month"), DB::raw('count(*) as count'))
             ->where('created_at', '>=', Carbon::now()->subMonths(6))
             ->groupBy('month')
@@ -30,11 +29,15 @@ class DashboardController extends Controller
                 ];
             });
 
+        $totalUsers = User::count();
+        $latestUsers = User::latest()->take(5)->get();
+        $growth = User::where('created_at', '>=', Carbon::now()->subMonth())->count();
+
         return Inertia::render('dashboard', [
             'users' => [
-                'total' => User::count(),
-                'list' => User::latest()->take(5)->get(),
-                'growth' => User::where('created_at', '>=', Carbon::now()->subMonth())->count(),
+                'total' => $totalUsers,
+                'list' => $latestUsers,
+                'growth' => $growth,
                 'monthly' => $monthlyUsers
             ]
         ]);

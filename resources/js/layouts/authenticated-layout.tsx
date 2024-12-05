@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggler } from "@/components/theme-toggler";
+import { Toaster } from "@/components/ui/toaster";
 export default function Authenticated({
     header,
     children,
@@ -73,6 +74,7 @@ export default function Authenticated({
                         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
                             <main className="flex-1">
                                 <div className="relative">{children}</div>
+                                <Toaster />
                             </main>
                         </div>
                     </SidebarInset>

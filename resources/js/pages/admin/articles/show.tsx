@@ -1,41 +1,32 @@
-"use client";
 import AuthenticatedLayout from "@/layouts/authenticated-layout";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { User } from "@/types";
+import { Article } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Link } from "@inertiajs/react";
 import { ArrowLeftIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export default function UserView({ user }: { user: User }) {
+export default function ArticleView({ article }: { article: Article }) {
     return (
-        <AuthenticatedLayout header={{ title: "User Information" }}>
+        <AuthenticatedLayout header={{ title: "Article Information" }}>
             <div className="space-y-6">
                 <Card>
                     <CardHeader className="border-b">
                         <div className="flex items-center justify-between">
                             <div className="flex-1">
                                 <h2 className="text-2xl font-semibold text-foreground">
-                                    User Information
+                                    Article Information
                                 </h2>
                             </div>
                             <Button variant="default" asChild>
-                                <Link href={route("users.index")}>
+                                <Link href={route("articles.index")}>
                                     <ArrowLeftIcon className="w-4 h-4 mr-2" />
                                     Back
                                 </Link>
                             </Button>
                         </div>
-                    </CardHeader>   
+                    </CardHeader>
                     <CardContent className="space-y-6 pt-6">
-                        <Avatar className="size-32">
-                            {user.avatar ? (
-                                <AvatarImage src={user.avatar} alt={user.name} className="size-32" />
-                            ) : (
-                                <AvatarFallback className="bg-primary-foreground text-primary text-xl">{user.name.charAt(0)}</AvatarFallback>
-                            )}
-                        </Avatar>   
                         <div className="grid grid-cols-[200px_1fr] gap-4 items-center">
                             <Label
                                 htmlFor="name"
@@ -43,52 +34,77 @@ export default function UserView({ user }: { user: User }) {
                             >
                                 Name
                             </Label>
-                            <span className="text-foreground text-sm">{user.name}</span>
+                            <span className="text-foreground text-sm">
+                                {article.title}
+                            </span>
                         </div>
 
                         <div className="grid grid-cols-[200px_1fr] gap-4 items-center">
                             <Label
-                                htmlFor="email"
+                                htmlFor="slug"
                                 className="font-medium text-foreground"
                             >
-                                Email
-                            </Label>
-                            <span className="text-foreground text-sm">{user.email}</span>
-                        </div>
-
-                        <div className="grid grid-cols-[200px_1fr] gap-4 items-center">
-                            <Label
-                                htmlFor="name"
-                                className="font-medium text-foreground"
-                            >
-                                Email Verified
+                                Slug
                             </Label>
                             <span className="text-foreground text-sm">
-                                {user.email_verified_at
-                                    ? "Verified"
-                                    : "Unverified"}
+                                {article.slug}
                             </span>
                         </div>
                         <div className="grid grid-cols-[200px_1fr] gap-4 items-center">
                             <Label
-                                htmlFor="name"
+                                htmlFor="author"
+                                className="font-medium text-foreground"
+                            >
+                                Author
+                            </Label>
+                            <span className="text-foreground text-sm">
+                                {article.user.name}
+                            </span>
+                        </div>
+                        <div className="grid grid-cols-[200px_1fr] gap-4 items-center">
+                            <Label
+                                htmlFor="content"
+                                className="font-medium text-foreground"
+                            >
+                                Content
+                            </Label>
+                            <span className="text-foreground text-sm">
+                                {article.content}
+                            </span>
+                        </div>
+                        <div className="grid grid-cols-[200px_1fr] gap-4 items-center">
+                            <Label
+                                htmlFor="created_at"
                                 className="font-medium text-foreground"
                             >
                                 Created At
                             </Label>
                             <span className="text-foreground text-sm">
-                                {new Date(user.created_at).toLocaleString()}
+                                {new Date(article.created_at).toLocaleString()}
                             </span>
                         </div>
                         <div className="grid grid-cols-[200px_1fr] gap-4 items-center">
                             <Label
-                                htmlFor="name"
+                                htmlFor="categories"
+                                className="font-medium text-foreground"
+                            >
+                                Categories
+                            </Label>
+                            <span className="text-foreground text-sm">
+                                {article.categories.map((category) => (
+                                    <div key={category.id}>{category.name}</div>
+                                ))}
+                            </span>
+                        </div>
+                        <div className="grid grid-cols-[200px_1fr] gap-4 items-center">
+                            <Label
+                                htmlFor="updated_at"
                                 className="font-medium text-foreground"
                             >
                                 Updated At
                             </Label>
                             <span className="text-foreground text-sm">
-                                {new Date(user.updated_at).toLocaleString()}
+                                {new Date(article.updated_at).toLocaleString()}
                             </span>
                         </div>
                     </CardContent>

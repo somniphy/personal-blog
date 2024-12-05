@@ -13,7 +13,7 @@ export default function Edit({
     mustVerifyEmail,
     status,
     auth,
-    message,
+    message,    
 }: PageProps<{ mustVerifyEmail: boolean; status?: string; message?: string }>) {
     return (
         <AuthenticatedLayout header={{ title: "Profile" }}>

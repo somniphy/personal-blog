@@ -38,7 +38,7 @@ export default function Guest({
                             >
                                 <AppWindowIcon className="size-6 text-sidebar-primary-background" />
                                 <span className="font-bold">
-                                    shadcn laravel
+                                    shadcn laravel blog
                                 </span>
                             </Link>
                             <div className="hidden md:flex items-center gap-2">

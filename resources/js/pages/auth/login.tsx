@@ -124,11 +124,12 @@ export default function Login({
                                 </label>
                             </div>
 
-                            <div className="items-center">
+                            <div className="mt-4 items-center">
                                 <Button
                                     type="submit"
                                     variant="default"
                                     disabled={processing}
+                                    className="w-full"
                                 >
                                     Log in
                                 </Button>

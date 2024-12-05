@@ -38,8 +38,8 @@ export function DataTable<TData, TValue>({
     data,
     placeholder,
     column,
-    // buttonText,
-    // routeName,
+    buttonText,
+    routeName,
 }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -72,12 +72,12 @@ export function DataTable<TData, TValue>({
                     }
                     className="max-w-sm"
                 ></Input>
-                {/* <Link href={route(`${routeName}.create`)}>
+                <Link href={route(`${routeName}.create`)}>
                     <Button variant="default" size="sm">
                         <PlusIcon className="w-4 h-4" />
                         Add {buttonText}
                     </Button>
-                </Link> */}
+                </Link>
             </div>
 
             <div className="rounded-md border">
