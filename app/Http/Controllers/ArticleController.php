@@ -74,14 +74,15 @@ class ArticleController extends Controller
      */
     public function show(Article $article, User $user)
     {
-
+        $categories = Category::all();
         return Inertia::render('admin/articles/show', [
             'article' => $article,
             'user' => [
                 'id' => $article->user->id,
                 'name' => $article->user->name,
             ],
-            'categories' => $article->categories->pluck('name')->toArray(),
+            'current_categories' => $article->categories,
+            'categories' => $categories,
         ]);
     }
 
@@ -97,15 +98,37 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Article $article)
-    {
-        //
+{
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        'category_ids' => 'required|array|exists:categories,id', // Changed from category_id to category_ids
+    ]);
+
+    $slug = Str::slug($request->title);
+    if (Article::where('slug', $slug)->where('id', '!=', $article->id)->exists()) {
+        return back()->with('message', ['slug' => 'Article name already exists!']);
     }
+
+    $article->update([
+        'title' => $validated['title'],
+        'content' => $validated['content'],
+        'slug' => $slug,
+    ]);
+
+    // Use sync instead of attach to manage relationships
+    $article->categories()->sync($validated['category_ids']);
+
+    return back()->with('message', 'Article updated successfully.');
+}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Article $article)
     {
-        //
+        $article->categories()->detach();
+        $article->delete();
+        return to_route('articles.index')->with('message', 'Article deleted successfully.');
     }
 }

@@ -28,8 +28,6 @@ import { Transition } from "@headlessui/react";
 interface Props extends PageProps<{ category: Category }> {}
 
 export default function CategoryView({ category }: Props) {
-
-   
     const [confirmingCategoryDeletion, setConfirmingCategoryDeletion] =
         useState(false);
     const {
