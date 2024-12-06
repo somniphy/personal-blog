@@ -33,7 +33,7 @@ export default function Guest({
                     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-border">
                         <nav className="flex h-14 text-sm items-center px-6 gap-4 justify-between">
                             <Link
-                                href={route("dashboard")}
+                                href={route("welcome")}
                                 className="flex items-center gap-2"
                             >
                                 <AppWindowIcon className="size-6 text-sidebar-primary-background" />
@@ -75,6 +75,8 @@ export default function Guest({
                                             <MenuIcon className="size-6" />
                                         </Button>
                                     </SheetTrigger>
+                                    <SheetTitle><SheetDescription></SheetDescription></SheetTitle>
+
                                     <SheetContent
                                         side="right"
                                         className="w-[300px] sm:w-[400px]"
@@ -118,7 +120,6 @@ export default function Guest({
                                                     </Link>
                                                 </>
                                             )}
-                                          
                                         </div>
                                     </SheetContent>
                                 </Sheet>

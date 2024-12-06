@@ -48,11 +48,11 @@ export default function ArticleView({
     } = useForm<{
         title: string;
         content: string;
-        category_ids: number[]; // Changed from categories to category_ids
+        category_ids: number[]; 
     }>({
         title: article.title,
         content: article.content,
-        category_ids: article.categories.map(cat => cat.id), // Extract only IDs
+        category_ids: article.categories.map(cat => cat.id), 
     });
 
     const update: FormEventHandler = (e) => {

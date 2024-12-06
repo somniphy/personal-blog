@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\User;
+
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
+use Illuminate\Support\Facades\Route;
 class HomeController extends Controller
 {
     /**
@@ -13,8 +16,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $articles = Article::latest()->paginate(5);
-        return Inertia::render("home", ["articles" => $articles]);
+        $articles = Article::with("categories")->get();
+        $categories = Category::all();
+        return Inertia::render(
+            "welcome",
+            [
+                "articles" => $articles,
+                "categories"=> $categories,
+                'canLogin' => Route::has('login'),
+                'canRegister' => Route::has('register'),
+            ]
+        );
     }
 
     /**
@@ -38,8 +50,15 @@ class HomeController extends Controller
      */
     public function show(Article $article)
     {
-        return Inertia::render('article/show', [
-            'article' => $article
+        $categories = Category::all();
+        return Inertia::render('articles/show', [
+            'article' => $article,
+            'user' => [
+                'id' => $article->user->id,
+                'name' => $article->user->name,
+            ],
+            'current_categories' => $article->categories,
+            'categories' => $categories,
         ]);
     }
 
